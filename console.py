@@ -127,7 +127,7 @@ class HBNBCommand(cmd.Cmd):
         print(inst.id)
 
         for i in range(1, len(arg_list)):
-            if '=' not in arg_list[i]:
+            if "=" not in arg_list[i]:
                 continue
             k, v = tuple(arg_list[i].split("="))
             if v[0] == '"':
