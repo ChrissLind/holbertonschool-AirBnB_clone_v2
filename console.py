@@ -127,8 +127,8 @@ class HBNBCommand(cmd.Cmd):
                 if '=' not in arg_list[i]:
                     continue
                 k, v = tuple(arg_list[i].split("="))
-                if value[0] == '"':
-                    value = value.replace("_", " ")
+                if v[0] == '"':
+                    v = v.replace("_", " ")
                 HBNBCommand.do_update(self, f"{arg_list[0]} {inst.id} {k} {v}")
             storage.save()
 
