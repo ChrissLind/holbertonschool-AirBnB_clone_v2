@@ -122,9 +122,9 @@ class HBNBCommand(cmd.Cmd):
         elif arg_list[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        inst = HBNBCommand.classes[arg_list[0]]()
+        new_inst = HBNBCommand.classes[arg_list[0]]()
         storage.save()
-        print(inst.id)
+        print(new_inst.id)
 
         for i in range(1, len(arg_list)):
             if "=" not in arg_list[i]:
@@ -132,7 +132,7 @@ class HBNBCommand(cmd.Cmd):
             k, v = tuple(arg_list[i].split("="))
             if v[0] == '"':
                 v = v.replace("_", " ")
-            HBNBCommand.do_update(self, f"{arg_list[0]} {inst.id} {k} {v}")
+            HBNBCommand.do_update(self, f"{arg_list[0]} {new_inst.id} {k} {v}")
         storage.save()
 
     def help_create(self):
