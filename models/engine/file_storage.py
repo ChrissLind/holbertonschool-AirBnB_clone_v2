@@ -10,6 +10,11 @@ class FileStorage:
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
+        class_dict = {}
+        for k, v in FileStorage.__objects.items():
+            if type(v) == cls:
+                class_dict[k] = v
+            return class_dict
         return FileStorage.__objects
 
     def new(self, obj):
@@ -50,6 +55,7 @@ class FileStorage:
             pass
 
     def delete(self, obj=None):
+        """Delete a given object if given"""
         try:
             del FileStorage.__objects[f"{type(obj).__name__}.{obj.id}"]
         except(KeyError, AttributeError):
