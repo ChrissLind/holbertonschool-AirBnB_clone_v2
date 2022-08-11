@@ -28,14 +28,14 @@ class DBStorage:
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
+        table_dict = {}
         if cls is None:
-            obj = self.__session.query(State).all()
-            obj.extend(self.__session.query(City).all())
+            result = self.__session.query(State).all()
         else:
-            if type(cls) == str:
-                eval(cls)
-            obj = self.__session.query(cls).all()
-            return {"{}.{}".format(type(o).__name__, o.id): o for o in obj}
+            result = self.__session.query(cls).all()
+        for obj in result:
+            table_dict[f"{type(obj).__name__}.{obj.id}"] = obj
+        return table_dict
 
     def new(self, obj):
         self.__session.add(obj)
