@@ -29,8 +29,12 @@ class DBStorage:
 
     def all(self, cls=None):
         table_dict = {}
+        classes = {'State': State, 'City': City}
         if cls is None:
-            result = self.__session.query(State).all()
+            for c in classes:
+                result = self.__session.query(classes[c]).all()
+                for obj in result:
+                    table_dict[f"{type(obj).__name__}.{obj.id}"] = obj
         else:
             result = self.__session.query(cls).all()
         for obj in result:
