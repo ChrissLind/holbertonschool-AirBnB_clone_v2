@@ -39,6 +39,7 @@ class DBStorage:
         classes = {
             'State': State, 'City': City,
             'User': User, 'Place': Place,
+            'Review': Review, 'Amenity': Amenity
             }
         if cls is None:
             for c in classes:
