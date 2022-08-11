@@ -121,17 +121,19 @@ class HBNBCommand(cmd.Cmd):
         elif arg_list[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_inst = HBNBCommand.classes[arg_list[0]]()
-        storage.save()
+        kwargs_dict = {}
+        if len(arg_list) > 0:
+            for i in range(1, len(arg_list)):
+                if "=" not in arg_list[i]:
+                    continue
+                k, v = tuple(arg_list[i].split("="))
+                if v[0] == '"':
+                    v = v.replace("_", " ")
+                kwargs_dict[k] = v
+        new_inst = HBNBCommand.classes[arg_list[0]](**kwargs_dict)
+        new_inst.save()
         print(new_inst.id)
 
-        for i in range(1, len(arg_list)):
-            if "=" not in arg_list[i]:
-                continue
-            k, v = tuple(arg_list[i].split("="))
-            if v[0] == '"':
-                v = v.replace("_", " ")
-            HBNBCommand.do_update(self, f"{arg_list[0]} {new_inst.id} {k} {v}")
         storage.save()
 
     def help_create(self):
