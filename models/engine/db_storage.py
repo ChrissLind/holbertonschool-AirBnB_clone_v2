@@ -65,6 +65,10 @@ class DBStorage:
         if obj is not None:
             self.__session.delete(obj)
 
+    def close(self):
+        """Calls reload"""
+        self.__session.close
+
     def reload(self):
         """Loads information from Database and starts Session"""
         Base.metadata.create_all(self.__engine)
