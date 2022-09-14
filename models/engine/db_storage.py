@@ -43,11 +43,11 @@ class DBStorage:
             }
         if cls is None:
             for c in classes:
-                result = self.__session.query(classes[c]).all()
+                result = self.__session.query(cls[c]).all()
                 for obj in result:
                     table_dict[f"{type(obj).__name__}.{obj.id}"] = obj
         else:
-            result = self.__session.query(classes[cls]).all()
+            result = self.__session.query(cls).all()
         for obj in result:
             table_dict[f"{type(obj).__name__}.{obj.id}"] = obj
         return table_dict
@@ -67,7 +67,7 @@ class DBStorage:
 
     def close(self):
         """Calls reload"""
-        self.__session.close
+        self.__session.close()
 
     def reload(self):
         """Loads information from Database and starts Session"""
